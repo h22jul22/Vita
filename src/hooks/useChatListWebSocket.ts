@@ -13,7 +13,7 @@ function useChatListWebSocket(onNewMessage: (data: ChatList) => void): WebSocket
       }
 
       const accessToken = localStorage.getItem('accessToken');
-      const ws = new WebSocket(`wss://jangsalicense.com/ws/chat/list/?token=${accessToken}`);
+      const ws = new WebSocket(`wss://api.vita.diannn.xyz/ws/chat/list/?token=${accessToken}`);
 
       ws.onopen = () => {
         setChatListWebSocket(ws);
