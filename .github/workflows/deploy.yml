@@ -17,11 +17,11 @@ jobs:
 
       - name: 빌드
         env:
-          VITE_PUBLIC_BASE_URL: ${{ env.VITE_PUBLIC_BASE_URL }}
-          VITE_KAKAO_BASE_URL: ${{ env.VITE_KAKAO_BASE_URL }}
-          VITE_KAKAO_CLIENT_ID: ${{ env.VITE_KAKAO_CLIENT_ID }}
-          VITE_KAKAO_REDIRECT_URI: ${{ env.VITE_KAKAO_REDIRECT_URI }}
-          VITE_TOSS_CLIENTKEY: ${{ env.VITE_TOSS_CLIENTKEY }}
+          VITE_PUBLIC_BASE_URL: ${{ secrets.VITE_PUBLIC_BASE_URL }}
+          VITE_KAKAO_BASE_URL: ${{ secrets.VITE_KAKAO_BASE_URL }}
+          VITE_KAKAO_CLIENT_ID: ${{ secrets.VITE_KAKAO_CLIENT_ID }}
+          VITE_KAKAO_REDIRECT_URI: ${{ secrets.VITE_KAKAO_REDIRECT_URI }}
+          VITE_TOSS_CLIENTKEY: ${{ secrets.VITE_TOSS_CLIENTKEY }}
         run: npm run build
 
       - name: 빌드 파일 디버깅
