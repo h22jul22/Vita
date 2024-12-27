@@ -9,6 +9,8 @@ const ChatRenderMessages = ({ chatMessages }: { chatMessages: ChatMessage[] }) =
   const otherUserProfileImage = useChatStore((state) => state.otherUserProfileImage);
 
   let lastMessageDate: string | null = null;
+  let lastSender: string | null = null;
+  let lastMessageTime: string | null = null;
 
   return chatMessages.map((message: ChatMessage, index: number) => {
     const messageDate = formatDate(message.timestamp);
@@ -19,8 +21,12 @@ const ChatRenderMessages = ({ chatMessages }: { chatMessages: ChatMessage[] }) =
       !nextMessage ||
       nextMessage.sender_nickname !== message.sender_nickname ||
       !isSameMinute(messageTime, formatTime(nextMessage.timestamp));
+    const isFirstMessageFromSender =
+      message.sender_nickname !== lastSender || !isSameMinute(messageTime, lastMessageTime);
 
     lastMessageDate = messageDate;
+    lastSender = message.sender_nickname;
+    lastMessageTime = messageTime;
 
     return (
       <React.Fragment key={message.id}>
@@ -42,7 +48,9 @@ const ChatRenderMessages = ({ chatMessages }: { chatMessages: ChatMessage[] }) =
           ) : (
             <div className='flex'>
               <div className='mx-3 min-h-[49px] min-w-[49px]'>
-                <ProfileImage className='h-[49px] w-[49px] rounded-full object-cover' src={otherUserProfileImage} />
+                {isFirstMessageFromSender && (
+                  <ProfileImage className='h-[49px] w-[49px] rounded-full object-cover' src={otherUserProfileImage} />
+                )}
               </div>
               <p className='max-w-[240px] rounded-chat-other bg-white px-4 py-3 text-justify leading-snug'>
                 {message.message}
