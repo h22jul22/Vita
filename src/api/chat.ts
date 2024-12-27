@@ -28,7 +28,12 @@ export const fetchChatLists = async (): Promise<ChatList[]> => {
  */
 export const fetchChatMessages = async (roomId: number, page: number): Promise<ChatMessage[]> => {
   const response = await client.get(`/api/v1/chats/${roomId}/messages?page=${page}`);
-  return response.data.results.sort(
-    (a: ChatMessage, b: ChatMessage) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-  );
+  return response.data.results.sort((a: ChatMessage, b: ChatMessage) => {
+    const timeA = new Date(a.timestamp).getTime();
+    const timeB = new Date(b.timestamp).getTime();
+    if (timeA === timeB) {
+      return a.id - b.id;
+    }
+    return timeA - timeB;
+  });
 };

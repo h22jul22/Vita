@@ -38,6 +38,7 @@ const ChatMessageModal = () => {
       try {
         const fetchedMessages = await fetchChatMessages(activeRoomId, 1);
         setChatMessages(fetchedMessages);
+        console.log(fetchedMessages);
         updateChatRoomPage(activeRoomId, 1);
         setHasMoreMessages(fetchedMessages.length === 20);
         // 초기 로드 후 스크롤을 맨 아래로
